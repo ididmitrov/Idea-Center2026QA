@@ -205,6 +205,21 @@ namespace ExamPrepIdeaCenter
             Assert.That(response.Content, Is.EqualTo("\"There is no such idea!\""));
         }
 
+        [Test]
+        public void TestToFail()
+        {
+            string nonExistingIdeaId = "9999999";
+
+            var request = new RestRequest("/api/Idea/Delete", Method.Delete);
+            request.AddQueryParameter("ideaId", nonExistingIdeaId);
+            var response = this.client.Execute(request);
+
+
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), "Expected status code 200 OK.");
+
+        }
+
 
 
         [OneTimeTearDown]
